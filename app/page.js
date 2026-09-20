@@ -1,0 +1,5 @@
+import Link from 'next/link';
+import Sidebar from '../components/Sidebar';
+import { subjects } from '../lib/data';
+
+export default function Home(){return <div className="shell"><Sidebar/><main className="main"><div className="topbar"><div><div className="eyebrow">Prelims • 29 November 2026</div></div><input className="search" placeholder="Search notes (coming soon)" /></div><section className="hero"><div className="eyebrow">Your personal preparation system</div><h1>Study smart. Revise often.</h1><p>This is the home for your filtered UKPSC knowledge: precise notes, quick revision, PYQs and eventually mock tests. We will add content subject by subject as you complete each first reading.</p></section><h2 className="section-title">Subjects</h2><div className="grid">{subjects.map(s=><Link className="card" href={`/subjects/${s.slug}`} key={s.slug}><span className="tag">{s.priority}</span><h3>{s.name}</h3><p>{s.desc}</p><small>{s.status}</small></Link>)}</div><div className="footer">Built for one purpose: UKPSC Upper PCS 2026.</div></main></div>}
