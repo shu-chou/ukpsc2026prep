@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import Sidebar from '../../../components/Sidebar';
 import { subjects, uttarakhandSections, uttarakhandGeography, polityTopics, indianPolity } from '../../../lib/data';
-import { uttarakhandHistory } from '../../../lib/notes/uk-history';
+import { ukNotes as notesRegistry } from '../../../lib/notes';
 
-const ukNotes = { geography: uttarakhandGeography, history: uttarakhandHistory };
+const ukNotes = { geography: uttarakhandGeography, ...Object.fromEntries(Object.entries(notesRegistry).map(([k, v]) => [k, v.topics])) };
 
 export function generateStaticParams() { return subjects.map(s => ({ slug: s.slug })); }
 
