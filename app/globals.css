@@ -40,3 +40,7 @@ html.nav-open body{overflow:hidden}
 .mk-stats div{flex:1 1 40%}.mk-score span{font-size:38px}
 .mk-hrow>button:first-child{padding:10px 6px}
 }
+/* ---- Mobile dropdown overflow fix ---- */
+.mk-grid>*,.mk-card label{min-width:0}
+.mk-card select,.mk-card input[type=password]{width:100%;max-width:100%;min-width:0;text-overflow:ellipsis}
+@media(max-width:800px){.mk-grid{grid-template-columns:minmax(0,1fr)}}
