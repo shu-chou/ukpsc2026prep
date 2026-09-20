@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import Sidebar from '../../../components/Sidebar';
-import { subjects, uttarakhandSections, polityTopics, indianPolity } from '../../../lib/data';
+import { subjects, uttarakhandSections, uttarakhandGeography, polityTopics, indianPolity } from '../../../lib/data';
+import { uttarakhandHistory } from '../../../lib/notes/uk-history';
+
+const ukNotes = { geography: uttarakhandGeography, history: uttarakhandHistory };
 
 export function generateStaticParams() { return subjects.map(s => ({ slug: s.slug })); }
 
 function TopicCard({ topic, index, slug, basePath }) {
-  const href = slug === 'uttarakhand' && basePath === 'geography'
-    ? `/subjects/uttarakhand/geography/${encodeURIComponent(topic)}`
+  const href = slug === 'uttarakhand' && ukNotes[basePath]?.[topic]
+    ? `/subjects/uttarakhand/${basePath}/${encodeURIComponent(topic)}`
     : slug === 'polity' && indianPolity[topic]
       ? `/subjects/polity/${encodeURIComponent(topic)}`
       : null;
