@@ -14,7 +14,7 @@ export default async function PolityTopicPage({ params }) {
         <div className="subject-head"><div><div className="eyebrow">Indian Polity • {data.priority}</div><h1>{data.title}</h1><p>{data.summary}</p></div></div>
         {data.sections.map(section => <section className={`study-section ${section.type || ''}`} key={section.heading}>
             <h2>{section.heading}</h2>
-            <ul>{section.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul>
+            {section.paragraphs ? section.paragraphs.map(p => <p key={p}>{p}</p>) : <ul>{section.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul>}
         </section>)}
         <div className="source-note"><strong>Source / preparation note:</strong> {data.sourceNote}</div>
         <div className="topic-nav"><Link href="/subjects/polity">← All Indian Polity topics</Link></div>
