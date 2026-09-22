@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import Sidebar from '../../../../../components/Sidebar';
-import { uttarakhandGeography } from '../../../../../lib/data';
+import { uttarakhandGeography as uttarakhandGeographyRaw } from '../../../../../lib/data';
+import { uttarakhandGeographyExplained } from '../../../../../lib/notes/uk-geography';
+
+const uttarakhandGeography = { ...uttarakhandGeographyRaw, ...uttarakhandGeographyExplained };
 
 export function generateStaticParams(){return Object.keys(uttarakhandGeography).map(topic=>({topic}));}
 
