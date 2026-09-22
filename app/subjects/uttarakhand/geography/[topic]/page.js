@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Sidebar from '../../../../../components/Sidebar';
 import { uttarakhandGeography } from '../../../../../lib/data';
 
-export function generateStaticParams(){return Object.keys(uttarakhandGeography).map(topic=>({topic:encodeURIComponent(topic)}));}
+export function generateStaticParams(){return Object.keys(uttarakhandGeography).map(topic=>({topic}));}
 
 export default async function GeographyTopicPage({params}){
   const {topic: rawTopic}=await params;

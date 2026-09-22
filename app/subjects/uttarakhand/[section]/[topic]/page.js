@@ -3,7 +3,7 @@ import Sidebar from '../../../../../components/Sidebar';
 import { ukNotes } from '../../../../../lib/notes';
 
 export function generateStaticParams() {
-  return Object.entries(ukNotes).flatMap(([section, { topics }]) => Object.keys(topics).map(topic => ({ section, topic: encodeURIComponent(topic) })));
+  return Object.entries(ukNotes).flatMap(([section, { topics }]) => Object.keys(topics).map(topic => ({ section, topic })));
 }
 
 export default async function UkNotesTopicPage({ params }) {

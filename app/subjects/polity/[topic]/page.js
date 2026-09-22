@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Sidebar from '../../../../components/Sidebar';
 import { indianPolity } from '../../../../lib/data';
 
-export function generateStaticParams() { return Object.keys(indianPolity).map(topic => ({ topic: encodeURIComponent(topic) })); }
+export function generateStaticParams() { return Object.keys(indianPolity).map(topic => ({ topic })); }
 
 export default async function PolityTopicPage({ params }) {
     const { topic: rawTopic } = await params;
