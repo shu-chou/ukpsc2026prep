@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import Sidebar from '../../../../components/Sidebar';
-import { indianPolity } from '../../../../lib/data';
+import { indianPolity as indianPolityRaw } from '../../../../lib/data';
+import { indianPolityExplained } from '../../../../lib/notes/indian-polity';
+
+const indianPolity = { ...indianPolityRaw, ...indianPolityExplained };
 
 export function generateStaticParams() { return Object.keys(indianPolity).map(topic => ({ topic })); }
 
