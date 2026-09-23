@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Sidebar from '../../../components/Sidebar';
 import { subjects, uttarakhandSections, uttarakhandGeography, polityTopics, indianPolity } from '../../../lib/data';
 import { ukNotes as notesRegistry } from '../../../lib/notes';
+import { allIndiaNotes } from '../../../lib/notes/all-india';
 
 const ukNotes = { geography: uttarakhandGeography, ...Object.fromEntries(Object.entries(notesRegistry).map(([k, v]) => [k, v.topics])) };
 
@@ -12,7 +13,9 @@ function TopicCard({ topic, index, slug, basePath }) {
     ? `/subjects/uttarakhand/${basePath}/${encodeURIComponent(topic)}`
     : slug === 'polity' && indianPolity[topic]
       ? `/subjects/polity/${encodeURIComponent(topic)}`
-      : null;
+      : allIndiaNotes[slug]?.topics[topic]
+        ? `/subjects/${slug}/${encodeURIComponent(topic)}`
+        : null;
   const content = <><div><strong>{index + 1}. {topic}</strong><br /><small>{href ? 'Study notes, must-remember facts, traps and quick revision' : 'Precise notes will be added here.'}</small></div><span className="tag">{href ? 'Notes ready' : 'To build'}</span></>;
   return href ? <Link className="topic topic-link" href={href}>{content}</Link> : <div className="topic">{content}</div>;
 }
@@ -36,6 +39,7 @@ export default async function SubjectPage({ params }) {
   if (slug === 'uttarakhand' && !section) content = <UttarakhandPage />;
   else if (slug === 'uttarakhand' && section) { const found = uttarakhandSections.find(s => s.slug === section); if (!found) return <div>Not found</div>; content = <SectionPage section={found} />; }
   else if (slug === 'polity') content = <><div className="subject-head"><div><div className="eyebrow">{subject.priority}</div><h1>{subject.name}</h1><p>{subject.desc}</p></div></div><h2 className="section-title">Topics</h2><div className="topic-list">{polityTopics.map((t, i) => <TopicCard topic={t} index={i} slug={slug} key={t} />)}</div></>;
+  else if (allIndiaNotes[slug]) content = <><div className="subject-head"><div><div className="eyebrow">{subject.priority}</div><h1>{subject.name}</h1><p>{subject.desc}</p></div></div><h2 className="section-title">Topics</h2><div className="topic-list">{Object.keys(allIndiaNotes[slug].topics).map((t, i) => <TopicCard topic={t} index={i} slug={slug} key={t} />)}</div></>;
   else content = <><div className="subject-head"><div><div className="eyebrow">{subject.priority}</div><h1>{subject.name}</h1><p>{subject.desc}</p></div></div><div className="note"><h2>Coming soon</h2><p>We will add this subject after filtering it through the UKPSC strategy: syllabus + PYQs + subject importance + current relevance.</p></div></>;
   return <div className="shell"><Sidebar /><main className="main"><Link className="back" href="/">← Dashboard</Link>{content}<div id="ask" className="ask"><strong>🤔 Have a doubt while studying?</strong><p>For now, use ChatGPT directly. We will later add a proper in-site assistant if you decide it is worth the API cost.</p><a href="https://chatgpt.com/" target="_blank" rel="noreferrer"><button>Open ChatGPT</button></a></div></main></div>;
 }
